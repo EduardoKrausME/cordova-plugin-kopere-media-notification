@@ -1,0 +1,29 @@
+{
+  "name": "cordova-plugin-kopere-media-notification",
+  "version": "1.0.0",
+  "description": "Android MediaSession + MediaStyle notification controls for Cordova apps.",
+  "cordova": {
+    "id": "cordova-plugin-kopere-media-notification",
+    "platforms": [
+      "android"
+    ]
+  },
+  "keywords": [
+    "cordova",
+    "android",
+    "media",
+    "notification",
+    "mediasession",
+    "foreground-service",
+    "kopere"
+  ],
+  "author": "Eduardo Kraus",
+  "license": "MIT",
+  "engines": {
+    "cordovaDependencies": {
+      "3.0.0": {
+        "cordova-android": ">=10.0.0"
+      }
+    }
+  }
+}

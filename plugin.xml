@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin id="cordova-plugin-kopere-media-notification"
+        version="1.0.0"
+        xmlns="http://apache.org/cordova/ns/plugins/1.0"
+        xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <name>KopereMediaNotification</name>
+    <description>Android MediaSession + MediaStyle notification controls for Cordova apps.</description>
+    <license>MIT</license>
+    <keywords>cordova,android,media,notification,mediasession,kopere</keywords>
+
+    <js-module src="www/KopereMediaNotification.js" name="KopereMediaNotification">
+        <clobbers target="KopereMediaNotification"/>
+    </js-module>
+
+    <platform name="android">
+        <preference name="ANDROIDX_CORE_VERSION" default="1.13.1"/>
+        <preference name="ANDROIDX_MEDIA_VERSION" default="1.7.0"/>
+
+        <framework src="androidx.core:core:$ANDROIDX_CORE_VERSION"/>
+        <framework src="androidx.media:media:$ANDROIDX_MEDIA_VERSION"/>
+
+        <source-file src="src/android/MediaNotificationPlugin.java"
+                     target-dir="src/com/eduardokraus/medianotification"/>
+        <source-file src="src/android/MediaNotificationService.java"
+                     target-dir="src/com/eduardokraus/medianotification"/>
+        <source-file src="src/android/MediaNotificationReceiver.java"
+                     target-dir="src/com/eduardokraus/medianotification"/>
+        <source-file src="src/android/MediaNotificationData.java"
+                     target-dir="src/com/eduardokraus/medianotification"/>
+
+        <config-file target="AndroidManifest.xml" parent="/manifest">
+            <uses-permission android:name="android.permission.INTERNET"/>
+            <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
+            <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK"/>
+            <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
+        </config-file>
+
+        <config-file target="AndroidManifest.xml" parent="/manifest/application">
+            <service android:name="com.eduardokraus.medianotification.MediaNotificationService"
+                     android:exported="false"
+                     android:foregroundServiceType="mediaPlayback"/>
+
+            <receiver android:name="com.eduardokraus.medianotification.MediaNotificationReceiver"
+                      android:exported="false"/>
+        </config-file>
+    </platform>
+</plugin>
