@@ -101,3 +101,50 @@ Veja `examples/supervideo-integration.js`.
 Este plugin não reproduz o vídeo dentro da notificação. A notificação mostra controles nativos, capa, título e progresso. Para mini vídeo flutuante, o recurso correto é Picture-in-Picture, que é separado deste plugin.
 
 No Android 13+, o plugin possui a permissão `POST_NOTIFICATIONS` no Manifest e fornece `requestPermission`. Em notificações de mídia, o Android possui tratamento especial quando existe `MediaSession`, mas o app ainda pode chamar `requestPermission` para não depender do comportamento do fabricante.
+
+## Download notification API
+
+Além da notificação de reprodução, o plugin também pode publicar uma notificação simples de progresso para downloads offline.
+
+```js
+KopereMediaNotification.startDownload({
+    id: "course-123-file-456",
+    title: "Nome do vídeo",
+    text: "Baixando...",
+    subText: "Download offline",
+    loaded: 0,
+    total: 0,
+    percent: 0,
+    indeterminate: true,
+    channelId: "kopere_offline_downloads",
+    channelName: "Downloads offline"
+});
+
+KopereMediaNotification.updateDownload({
+    id: "course-123-file-456",
+    title: "Nome do vídeo",
+    text: "5 MB de 20 MB (25%)",
+    loaded: 5242880,
+    total: 20971520,
+    percent: 25,
+    indeterminate: false
+});
+
+KopereMediaNotification.completeDownload({
+    id: "course-123-file-456",
+    title: "Nome do vídeo",
+    completeText: "Download concluído"
+});
+
+KopereMediaNotification.failDownload({
+    id: "course-123-file-456",
+    title: "Nome do vídeo",
+    errorText: "Erro no download"
+});
+
+KopereMediaNotification.cancelDownload({
+    id: "course-123-file-456"
+});
+```
+
+No APP, o `FileCache.saveAndGet` usa essa API apenas quando o 7º parâmetro `mostrarNotificacao` for `true`.
