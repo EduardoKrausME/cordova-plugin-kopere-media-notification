@@ -146,5 +146,3 @@ KopereMediaNotification.cancelDownload({
     id: "course-123-file-456"
 });
 ```
-
-No APP, o `FileCache.saveAndGet` usa essa API apenas quando o 7º parâmetro `mostrarNotificacao` for `true`.
